@@ -20,12 +20,19 @@ public class ClientController {
 	UserDAO userDao;
 	
 	@RequestMapping("/{email}/authenticateLogin")
-	public boolean authenticateLogin(@PathVariable("email") String email, @RequestBody String password) {
-		boolean valid = false;
-		
-		if (userDao.findByEmailAndPassword(email, password) != null) {
-			valid = true;
-		}
-		return valid; 
+	public User authenticateLogin(@PathVariable("email") String email, @RequestBody String password) {
+		User user = userDao.findByEmailAndPassword(email, password);
+		return user;
+	}
+	
+	@RequestMapping("/user/{id}")
+	public User userById(@PathVariable("id") Integer id) {
+		User user = userDao.findByUserID(id);
+		return user;
+	}
+	
+	@RequestMapping("/user/{id}/delete")
+	public void deleteUser(@PathVariable("id") Integer id) {
+		userDao.delete(id);
 	}
 }

@@ -8,4 +8,6 @@ public interface UserDAO extends CrudRepository<User, Integer> {
 
 	public List<User> findAll();
 	public User findByEmailAndPassword(String email, String password);
+	public User findByUserID(Integer userID);
+	public void delete(Integer userID);
 }
