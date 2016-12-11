@@ -10,4 +10,5 @@ public interface UserDAO extends CrudRepository<User, Integer> {
 	public User findByEmailAndPassword(String email, String password);
 	public User findByUserID(Integer userID);
 	public void delete(Integer userID);
+	public <S extends User> S save(User user);
 }

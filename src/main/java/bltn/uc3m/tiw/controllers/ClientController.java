@@ -1,6 +1,7 @@
 package bltn.uc3m.tiw.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +30,29 @@ public class ClientController {
 	public User userById(@PathVariable("id") Integer id) {
 		User user = userDao.findByUserID(id);
 		return user;
+	}
+	
+	@RequestMapping("/user/{id}/update")
+	public User updateUser(@PathVariable("id") Integer id, @RequestBody Map<String, String[]> formParams) {
+		// Get new user details 
+		String email = formParams.get("email")[0];
+		String password = formParams.get("password")[0];
+		String forename = formParams.get("forename")[0];
+		String surname = formParams.get("surname")[0];
+		String city = formParams.get("city")[0];
+		
+		// Perform updates 
+		User user = userDao.findByUserID(id);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setForename(forename);
+		user.setSurname(surname);
+		user.setCity(city);
+		
+		// Save changes 
+		User updatedUser = userDao.save(user);
+		
+		return updatedUser;
 	}
 	
 	@RequestMapping("/user/{id}/delete")
