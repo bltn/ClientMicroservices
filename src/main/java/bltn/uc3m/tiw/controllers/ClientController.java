@@ -36,7 +36,6 @@ public class ClientController {
 	public User updateUser(@PathVariable("id") Integer id, @RequestBody Map<String, String[]> formParams) {
 		// Get new user details 
 		String email = formParams.get("email")[0];
-		String password = formParams.get("password")[0];
 		String forename = formParams.get("forename")[0];
 		String surname = formParams.get("surname")[0];
 		String city = formParams.get("city")[0];
@@ -44,15 +43,17 @@ public class ClientController {
 		// Perform updates 
 		User user = userDao.findByUserID(id);
 		user.setEmail(email);
-		user.setPassword(password);
 		user.setForename(forename);
 		user.setSurname(surname);
 		user.setCity(city);
 		
 		// Save changes 
-		User updatedUser = userDao.save(user);
-		
-		return updatedUser;
+		try {
+			User updatedUser = userDao.save(user);
+			return updatedUser;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@RequestMapping("/user/{id}/delete")

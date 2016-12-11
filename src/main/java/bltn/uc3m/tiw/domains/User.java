@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity 
 public class User implements Serializable {
@@ -17,10 +18,15 @@ public class User implements Serializable {
 	@Column(name="user_id")
 	private Integer userID;
 	
+	@Size(min = 2, max=254)
 	private String email;
+	@Size(min = 2, max=32)
 	private String password;
+	@Size(min = 2, max=40)
 	private String forename;
+	@Size(min = 2, max=70)
 	private String surname;
+	@Size(min = 2, max=40)
 	private String city;
 	private boolean admin;
 	
