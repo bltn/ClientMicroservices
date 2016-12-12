@@ -20,6 +20,33 @@ public class ClientController {
 	@Autowired
 	UserDAO userDao;
 	
+	@RequestMapping("/user/new")
+	public User registerUser(@RequestBody Map<String, String[]> formParams) {
+		// Get new user details 
+		String email = formParams.get("email")[0];
+		String password = formParams.get("password")[0];
+		String forename = formParams.get("forename")[0];
+		String surname = formParams.get("surname")[0];
+		String city = formParams.get("city")[0];
+		
+		// Make sure email and/or password aren't taken 
+		User userWithEmail = userDao.findByEmail(email);
+		User userWithPassword = userDao.findByPassword(password);
+		if (userWithEmail == null && userWithPassword == null) {
+			
+			// Try to save new user 
+			User newUser = new User(email, password, forename, surname, city);
+			try {
+				User savedUser = userDao.save(newUser);
+				return savedUser;
+			} catch (Exception e) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
 	@RequestMapping("/{email}/authenticateLogin")
 	public User authenticateLogin(@PathVariable("email") String email, @RequestBody String password) {
 		User user = userDao.findByEmailAndPassword(email, password);

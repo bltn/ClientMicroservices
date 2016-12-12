@@ -30,6 +30,19 @@ public class User implements Serializable {
 	private String city;
 	private boolean admin;
 	
+	public User() {}
+	
+	public User(String email, String password, String forename, String surname,
+			String city) {
+		this.userID = null;
+		this.email = email;
+		this.password = password;
+		this.forename = forename;
+		this.surname = surname;
+		this.city = city;
+		this.admin = false;
+	}
+	
 	public Integer getUserID() {
 		return userID;
 	}
