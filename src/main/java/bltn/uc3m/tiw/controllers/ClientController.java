@@ -20,6 +20,12 @@ public class ClientController {
 	@Autowired
 	UserDAO userDao;
 	
+	@RequestMapping("/users")
+	public List<User> allUsers() {
+		List<User> users = userDao.findAll();
+		return users;
+	}
+	
 	@RequestMapping("/user/new")
 	public User registerUser(@RequestBody Map<String, String[]> formParams) {
 		// Get new user details 
