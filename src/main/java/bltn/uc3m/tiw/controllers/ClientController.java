@@ -20,13 +20,13 @@ public class ClientController {
 	@Autowired
 	UserDAO userDao;
 	
-	@RequestMapping("/users")
+	@RequestMapping("/users/index")
 	public List<User> allUsers() {
 		List<User> users = userDao.findAll();
 		return users;
 	}
 	
-	@RequestMapping("/user/new")
+	@RequestMapping("/users/new")
 	public User registerUser(@RequestBody Map<String, String[]> formParams) {
 		// Get new user details 
 		String email = formParams.get("email")[0];
@@ -59,13 +59,13 @@ public class ClientController {
 		return user;
 	}
 	
-	@RequestMapping("/user/{id}")
+	@RequestMapping("/users/{id}")
 	public User userById(@PathVariable("id") Integer id) {
 		User user = userDao.findByUserID(id);
 		return user;
 	}
 	
-	@RequestMapping("/user/{id}/update")
+	@RequestMapping("/users/{id}/update")
 	public User updateUser(@PathVariable("id") Integer id, @RequestBody Map<String, String[]> formParams) {
 		// Get new user details 
 		String email = formParams.get("email")[0];
@@ -89,7 +89,7 @@ public class ClientController {
 		}
 	}
 	
-	@RequestMapping("/user/{id}/delete")
+	@RequestMapping("/users/{id}/delete")
 	public void deleteUser(@PathVariable("id") Integer id) {
 		userDao.delete(id);
 	}
